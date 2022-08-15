@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Player {
@@ -13,9 +14,14 @@ public class Player {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@NotNull(message = "Player name can't be empty")
 	private String name;
+
+	@NotNull(message = "Player position cant't be empty")
 	private String position;
 
+	@NotNull(message = "Player need to have a team. Team can't be empty")
 	@ManyToOne(targetEntity = Team.class, cascade = { CascadeType.MERGE })
 	private Team team;
 

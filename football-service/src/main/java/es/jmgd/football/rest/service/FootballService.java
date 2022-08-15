@@ -52,4 +52,13 @@ public class FootballService {
 		}
 	}
 
+	public ResponseEntity<Void> addPlayer(Player player) {
+		if (playerRepository.findById(player.getId()).isPresent()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			playerRepository.save(player);
+			return ResponseEntity.noContent().build();
+		}
+	}
+
 }
