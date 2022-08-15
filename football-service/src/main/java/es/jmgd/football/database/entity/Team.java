@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "FOOTBALL_TEAM")
@@ -15,6 +16,7 @@ public class Team {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
+	@NotNull(message = "Team name can't be empty")
 	@Column(unique = true)
 	private String name;
 

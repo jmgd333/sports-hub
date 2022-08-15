@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Team {
@@ -15,8 +16,10 @@ public class Team {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
+	@NotNull(message = "Team name can't be empty")
 	private String name;
 
+	@NotNull(message = "Team need to have drivers. Drivers can't be empty")
 	@OneToMany(targetEntity = Driver.class, cascade = { CascadeType.ALL })
 	private List<Driver> driver;
 
