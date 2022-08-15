@@ -1,13 +1,12 @@
 package es.jmgd.football;
 
-import java.util.Arrays;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import es.jmgd.football.database.entity.Driver;
+import es.jmgd.football.database.entity.Player;
 import es.jmgd.football.database.entity.Team;
+import es.jmgd.football.database.repository.PlayerRepository;
 import es.jmgd.football.database.repository.TeamRepository;
 
 @SpringBootApplication
@@ -18,18 +17,37 @@ public class FootballServiceApplication {
 
 		// Generating in memory data for H2 Database
 		TeamRepository teamRepository = context.getBean(TeamRepository.class);
+		PlayerRepository playerRepository = context.getBean(PlayerRepository.class);
 
-		Team teamAlpine = new Team("Alpine", Arrays.asList(new Driver("F.Alonso"), new Driver("E. Ocon")));
-		Team teamMercedes = new Team("Mercedes", Arrays.asList(new Driver("L. Hamilton"), new Driver("G. Russell")));
-		Team teamFerrari = new Team("Ferrari", Arrays.asList(new Driver("C. Sainz"), new Driver("C. Leclerc")));
-		Team teamRedBull = new Team("RedBull", Arrays.asList(new Driver("M. Verstappen"), new Driver("S. Perez")));
-		Team teamMcLaren = new Team("McLaren", Arrays.asList(new Driver("D. Ricciardo"), new Driver("L. Norris")));
+		// Load data from Team 1
+		Team team = new Team("Real Madrid");
+		teamRepository.save(team);
 
-		teamRepository.save(teamAlpine);
-		teamRepository.save(teamMercedes);
-		teamRepository.save(teamFerrari);
-		teamRepository.save(teamRedBull);
-		teamRepository.save(teamMcLaren);
+		Player player = new Player("Benzema", "Striker", team);
+		playerRepository.save(player);
+		player = new Player("Modric", "Midfield", team);
+		playerRepository.save(player);
+		player = new Player("Kroos", "Midfield", team);
+		playerRepository.save(player);
+		player = new Player("Alaba", "Defense", team);
+		playerRepository.save(player);
+		player = new Player("Courtois", "GoalKeeper", team);
+		playerRepository.save(player);
+
+		// Load data from Team 2
+		team = new Team("Barcelona");
+		teamRepository.save(team);
+
+		player = new Player("Lewandosky", "Striker", team);
+		playerRepository.save(player);
+		player = new Player("Iniesta", "Midfield", team);
+		playerRepository.save(player);
+		player = new Player("Xavi", "Midfield", team);
+		playerRepository.save(player);
+		player = new Player("Puyol", "Defense", team);
+		playerRepository.save(player);
+		player = new Player("T. Stegen", "GoalKeeper", team);
+		playerRepository.save(player);
 
 	}
 

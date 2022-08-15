@@ -1,4 +1,4 @@
-package es.jmgd.football.database.entity;
+package es.jmgd.formulaone.database.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +31,8 @@ public class Driver {
 
 	public Driver(String name) {
 		this.name = name;
+	}
 
+	public Driver() {
 	}
 }

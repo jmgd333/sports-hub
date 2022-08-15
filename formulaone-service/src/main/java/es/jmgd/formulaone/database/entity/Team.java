@@ -1,22 +1,24 @@
-package es.jmgd.football.database.entity;
+package es.jmgd.formulaone.database.entity;
 
-import javax.persistence.Column;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 @Entity
-@Table(name = "FOOTBALL_TEAM")
 public class Team {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(unique = true)
 	private String name;
+
+	@OneToMany(targetEntity = Driver.class, cascade = { CascadeType.ALL })
+	private List<Driver> driver;
 
 	public int getId() {
 		return id;
@@ -34,8 +36,17 @@ public class Team {
 		this.name = name;
 	}
 
-	public Team(String name) {
+	public List<Driver> getDriver() {
+		return driver;
+	}
+
+	public void setDriver(List<Driver> driver) {
+		this.driver = driver;
+	}
+
+	public Team(String name, List<Driver> driver) {
 		this.name = name;
+		this.driver = driver;
 	}
 
 	public Team() {
