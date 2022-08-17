@@ -1,4 +1,4 @@
-package es.jmgd.registry.service;
+package es.jmgd.registry;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
