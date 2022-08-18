@@ -12,6 +12,8 @@ import es.jmgd.football.database.entity.Player;
 import es.jmgd.football.database.entity.Team;
 import es.jmgd.football.database.repository.PlayerRepository;
 import es.jmgd.football.database.repository.TeamRepository;
+import es.jmgd.football.rest.client.InformationClient;
+import es.jmgd.football.rest.model.information.Information;
 
 @Service
 public class FootballService {
@@ -24,7 +26,11 @@ public class FootballService {
 	@Autowired
 	private TeamRepository teamRepository;
 
+	@Autowired
+	private InformationClient informationClient;
+
 	public ResponseEntity<List<Player>> allPlayers() {
+		callToInformationService("allPlayers");
 		List<Player> players = playerRepository.findAll();
 		if (players != null && !players.isEmpty()) {
 			return ResponseEntity.ok(players);
@@ -34,6 +40,7 @@ public class FootballService {
 	}
 
 	public ResponseEntity<List<Player>> teamPlayers(String name) {
+		callToInformationService("teamPlayers");
 		List<Player> players = playerRepository.findPlayerByTeamNameIsLike(name);
 		if (players != null && !players.isEmpty()) {
 			return ResponseEntity.ok(players);
@@ -44,6 +51,7 @@ public class FootballService {
 	}
 
 	public ResponseEntity<List<Team>> allTeams() {
+		callToInformationService("allTeams");
 		List<Team> teams = teamRepository.findAll();
 		if (teams != null && !teams.isEmpty()) {
 			return ResponseEntity.ok(teams);
@@ -53,12 +61,18 @@ public class FootballService {
 	}
 
 	public ResponseEntity<Void> addPlayer(Player player) {
+		callToInformationService("addPlayer");
 		if (playerRepository.findById(player.getId()).isPresent()) {
 			return ResponseEntity.badRequest().build();
 		} else {
 			playerRepository.save(player);
 			return ResponseEntity.noContent().build();
 		}
+	}
+
+	private void callToInformationService(String apiCall) {
+		Information information = new Information("Football", apiCall);
+		informationClient.addRequestInformation(information);
 	}
 
 }

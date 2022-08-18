@@ -5,12 +5,14 @@ import java.util.Arrays;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import es.jmgd.formulaone.database.entity.Driver;
 import es.jmgd.formulaone.database.entity.Team;
 import es.jmgd.formulaone.database.repository.TeamRepository;
 
+@EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
 public class FormulaoneServiceApplication {
