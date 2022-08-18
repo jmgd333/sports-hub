@@ -14,6 +14,8 @@ import es.jmgd.formulaone.database.entity.Driver;
 import es.jmgd.formulaone.database.entity.Team;
 import es.jmgd.formulaone.database.repository.DriverRepository;
 import es.jmgd.formulaone.database.repository.TeamRepository;
+import es.jmgd.formulaone.rest.client.InformationClient;
+import es.jmgd.formulaone.rest.model.information.Information;
 
 @Service
 public class FormulaOneService {
@@ -26,7 +28,11 @@ public class FormulaOneService {
 	@Autowired
 	private TeamRepository teamRepository;
 
+	@Autowired
+	private InformationClient informationClient;
+
 	public ResponseEntity<List<Driver>> allDrivers() {
+		callToInformationService("allDrivers");
 		List<Driver> driverList = driverRepository.findAll();
 		if (driverList != null && !driverList.isEmpty()) {
 			return ResponseEntity.ok(driverList);
@@ -36,6 +42,7 @@ public class FormulaOneService {
 	}
 
 	public ResponseEntity<Driver> driverById(int id) {
+		callToInformationService("driverById");
 		Optional<Driver> driver = driverRepository.findById(id);
 		try {
 			Driver responseDriver = driver.get();
@@ -47,11 +54,17 @@ public class FormulaOneService {
 	}
 
 	public ResponseEntity<List<Team>> allTeams() {
+		callToInformationService("allTeams");
 		List<Team> teamList = teamRepository.findAll();
 		if (teamList != null && !teamList.isEmpty()) {
 			return ResponseEntity.ok(teamList);
 		} else {
 			return ResponseEntity.noContent().build();
 		}
+	}
+
+	private void callToInformationService(String apiCall) {
+		Information information = new Information("FormulaOne", apiCall);
+		informationClient.addRequestInformation(information);
 	}
 }

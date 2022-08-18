@@ -3,6 +3,7 @@ package es.jmgd.football;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import es.jmgd.football.database.entity.Player;
@@ -10,6 +11,7 @@ import es.jmgd.football.database.entity.Team;
 import es.jmgd.football.database.repository.PlayerRepository;
 import es.jmgd.football.database.repository.TeamRepository;
 
+@EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
 public class FootballServiceApplication {
