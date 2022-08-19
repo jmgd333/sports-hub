@@ -32,7 +32,9 @@ public class FormulaOneService {
 	private InformationClient informationClient;
 
 	public ResponseEntity<List<Driver>> allDrivers() {
-		callToInformationService("allDrivers");
+		if (!callToInformationService("allDrivers"))
+			return ResponseEntity.noContent().build();
+
 		List<Driver> driverList = driverRepository.findAll();
 		if (driverList != null && !driverList.isEmpty()) {
 			return ResponseEntity.ok(driverList);
@@ -42,7 +44,9 @@ public class FormulaOneService {
 	}
 
 	public ResponseEntity<Driver> driverById(int id) {
-		callToInformationService("driverById");
+		if (!callToInformationService("driverById"))
+			return ResponseEntity.noContent().build();
+
 		Optional<Driver> driver = driverRepository.findById(id);
 		try {
 			Driver responseDriver = driver.get();
@@ -54,7 +58,9 @@ public class FormulaOneService {
 	}
 
 	public ResponseEntity<List<Team>> allTeams() {
-		callToInformationService("allTeams");
+		if (!callToInformationService("allTeams"))
+			return ResponseEntity.noContent().build();
+
 		List<Team> teamList = teamRepository.findAll();
 		if (teamList != null && !teamList.isEmpty()) {
 			return ResponseEntity.ok(teamList);
@@ -63,8 +69,13 @@ public class FormulaOneService {
 		}
 	}
 
-	private void callToInformationService(String apiCall) {
+	private boolean callToInformationService(String apiCall) {
 		Information information = new Information("FormulaOne", apiCall);
-		informationClient.addRequestInformation(information);
+		if (informationClient.addRequestInformation(information).getBody() == true
+				|| informationClient.addRequestInformation(information).getBody() == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

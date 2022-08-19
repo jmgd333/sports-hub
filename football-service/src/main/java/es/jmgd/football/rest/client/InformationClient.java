@@ -13,5 +13,5 @@ import es.jmgd.football.rest.model.information.Information;
 @FeignClient(name = "info-service", path = "/information", fallback = InformationClientFallback.class)
 public interface InformationClient {
 	@PostMapping
-	public ResponseEntity<Void> addRequestInformation(@Valid @RequestBody Information information);
+	public ResponseEntity<Boolean> addRequestInformation(@Valid @RequestBody Information information);
 }

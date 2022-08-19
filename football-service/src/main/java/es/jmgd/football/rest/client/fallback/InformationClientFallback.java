@@ -10,9 +10,8 @@ import es.jmgd.football.rest.model.information.Information;
 public class InformationClientFallback implements InformationClient {
 
 	@Override
-	public ResponseEntity<Void> addRequestInformation(@Valid Information information) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<Boolean> addRequestInformation(@Valid Information information) {
+		return ResponseEntity.ok(false);
 	}
 
 }

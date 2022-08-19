@@ -23,7 +23,7 @@ public class InformationController {
 	private InformationService informationService;
 
 	@PostMapping
-	public ResponseEntity<Void> addRequestInformation(@Valid @RequestBody Information information,
+	public ResponseEntity<Boolean> addRequestInformation(@Valid @RequestBody Information information,
 			BindingResult result) {
 		if (result.hasErrors()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, result.getFieldErrors().toString());
