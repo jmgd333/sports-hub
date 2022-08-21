@@ -13,12 +13,12 @@ public class InformationService {
 	@Autowired
 	private InformationRepository informationRepository;
 
-	public ResponseEntity<Void> addRequestInformation(Information information) {
+	public ResponseEntity<Boolean> addRequestInformation(Information information) {
 		if (informationRepository.findById(information.getId()).isPresent()) {
 			return ResponseEntity.badRequest().build();
 		} else {
 			informationRepository.save(information);
-			return ResponseEntity.noContent().build();
+			return ResponseEntity.ok(true);
 		}
 	}
 
