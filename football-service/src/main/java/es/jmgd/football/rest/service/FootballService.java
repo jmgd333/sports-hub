@@ -30,7 +30,9 @@ public class FootballService {
 	private InformationClient informationClient;
 
 	public ResponseEntity<List<Player>> allPlayers() {
-		callToInformationService("allPlayers");
+		if (!callToInformationService("allPlayers"))
+			return ResponseEntity.noContent().build();
+
 		List<Player> players = playerRepository.findAll();
 		if (players != null && !players.isEmpty()) {
 			return ResponseEntity.ok(players);
@@ -40,7 +42,9 @@ public class FootballService {
 	}
 
 	public ResponseEntity<List<Player>> teamPlayers(String name) {
-		callToInformationService("teamPlayers");
+		if (!callToInformationService("teamPlayers"))
+			return ResponseEntity.noContent().build();
+
 		List<Player> players = playerRepository.findPlayerByTeamNameIsLike(name);
 		if (players != null && !players.isEmpty()) {
 			return ResponseEntity.ok(players);
@@ -51,7 +55,9 @@ public class FootballService {
 	}
 
 	public ResponseEntity<List<Team>> allTeams() {
-		callToInformationService("allTeams");
+		if (!callToInformationService("allTeams"))
+			return ResponseEntity.noContent().build();
+
 		List<Team> teams = teamRepository.findAll();
 		if (teams != null && !teams.isEmpty()) {
 			return ResponseEntity.ok(teams);
@@ -61,7 +67,9 @@ public class FootballService {
 	}
 
 	public ResponseEntity<Void> addPlayer(Player player) {
-		callToInformationService("addPlayer");
+		if (!callToInformationService("addPlayer"))
+			return ResponseEntity.noContent().build();
+
 		if (playerRepository.findById(player.getId()).isPresent()) {
 			return ResponseEntity.badRequest().build();
 		} else {
@@ -70,9 +78,14 @@ public class FootballService {
 		}
 	}
 
-	private void callToInformationService(String apiCall) {
+	private boolean callToInformationService(String apiCall) {
 		Information information = new Information("Football", apiCall);
-		informationClient.addRequestInformation(information);
+		if (informationClient.addRequestInformation(information).getBody() == true
+				|| informationClient.addRequestInformation(information).getBody() == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
