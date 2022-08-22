@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.netflix.turbine.EnableTurbine;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -14,6 +15,7 @@ import es.jmgd.formulaone.database.entity.Driver;
 import es.jmgd.formulaone.database.entity.Team;
 import es.jmgd.formulaone.database.repository.TeamRepository;
 
+@EnableTurbine
 @EnableHystrix
 @EnableHystrixDashboard
 @EnableFeignClients
