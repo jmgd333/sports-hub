@@ -73,8 +73,10 @@ public class FormulaOneService {
 		Information information = new Information("FormulaOne", apiCall);
 		if (informationClient.addRequestInformation(information).getBody() == true
 				|| informationClient.addRequestInformation(information).getBody() == null) {
+			log.info("Se pudo conectar con info-service");
 			return true;
 		} else {
+			log.info("No se pudo conectar con info-service");
 			return false;
 		}
 	}
