@@ -7,7 +7,7 @@ This project aims to put information from different sports APIs (mock APIs) unde
 Note: The main objective of the project is applying the microservices pattern.
 ## Documentation
 
-[Project Overview](https://github.com/jmgd333/sports-hub/wiki/Sports-HUB-Home)
+[Project Overview](https://github.com/jmgd333/sports-hub/wiki/Sports-HUB)
 
 
 ## Tech Stack
