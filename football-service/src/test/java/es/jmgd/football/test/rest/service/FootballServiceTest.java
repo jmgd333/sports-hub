@@ -8,18 +8,13 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import es.jmgd.football.database.entity.Player;
 import es.jmgd.football.database.repository.PlayerRepository;
 import es.jmgd.football.database.repository.TeamRepository;
 import es.jmgd.football.rest.client.InformationClient;
-import es.jmgd.football.rest.service.FootballService;
 
 public class FootballServiceTest {
-
-	@Autowired
-	private FootballService footballService;
 
 	@Mock
 	private PlayerRepository playerRepository;
@@ -51,8 +46,10 @@ public class FootballServiceTest {
 
 	@Test
 	@Disabled
-	void teamPlayers(String name) {
-
+	void teamPlayers() {
+		String name = "Juan";
+		playerRepository.findPlayerByTeamNameIsLike(name);
+		verify(playerRepository).findPlayerByTeamNameIsLike(name);
 	}
 
 	@Test
